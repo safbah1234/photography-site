@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATELIER LUMIÈRE — Editorial & Portrait Photography Booking</title>
+
+  <!-- Google Fonts: Cormorant Garamond (Editorial Serif) & Plus Jakarta Sans (Clean Sans-Serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Custom Brand Colors & Typography Configuration: Pastel Creams, Oaky Browns, Dark Forest Greens & Warm Bronze -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAF6EE',
+            sand: '#F2EAD9',
+            sandDark: '#EFE4CE',
+            oak: '#3B281E',
+            oakLight: '#5A3E30',
+            forest: '#1A3326',
+            forestDeep: '#12241B',
+            muted: '#6E5D52',
+            gold: '#B8925A',
+            goldHover: '#9E7943',
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            soft: '0 20px 50px -15px rgba(26, 51, 38, 0.10)',
+            card: '0 10px 30px -10px rgba(59, 40, 30, 0.08)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Custom Scrollbar & Subtle Editorial Polish */
+    body {
+      background-color: #FAF6EE;
+      color: #3B281E;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    h1, h2, h3, .font-editorial {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* Hide scrollbar for horizontal date/category scrollers on mobile */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Modal Backdrop Transition */
+    .modal-backdrop {
+      transition: opacity 0.3s ease;
+    }
+    .modal-panel {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-forest/15 selection:text-forestDeep">
+
+  <!-- =====================================================================
+       1. STICKY GLASSMORPHIC NAVIGATION BAR
+       Edit your Photography Studio Name, Navigation Links, and CTA text here.
+  ====================================================================== -->
+  <header class="fixed top-0 inset-x-0 z-40 bg-cream/90 backdrop-blur-md border-b border-oak/10 transition-all">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+      <!-- Brand Logo / Name -->
+      <a href="#" class="flex flex-col group">
+        <span class="font-editorial text-2xl sm:text-3xl tracking-wider font-semibold text-forest uppercase">
+          Atelier <span class="italic font-normal text-gold">Lumière</span>
+        </span>
+        <span class="text-[10px] tracking-[0.28em] uppercase text-oakLight -mt-1">
+          Editorial &amp; Portrait Photography
+        </span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-oak/85">
+        <a href="#packages" class="hover:text-forest transition-colors">Packages</a>
+        <a href="#portfolio" class="hover:text-forest transition-colors">Portfolio</a>
+        <a href="#process" class="hover:text-forest transition-colors">Process</a>
+        <a href="#reviews" class="hover:text-forest transition-colors">Reviews</a>
+        <a href="#contact" class="hover:text-forest transition-colors">Contact</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center space-x-3">
+        <button
+          onclick="openBookingModal()"
+          class="bg-forest hover:bg-oak text-cream text-xs sm:text-sm font-medium tracking-wider uppercase px-5 py-3 rounded-full transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer"
+        >
+          Book a Session
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobileMenuBtn"
+          onclick="toggleMobileMenu()"
+          aria-label="Toggle Menu"
+          class="md:hidden p-2.5 rounded-full border border-oak/15 text-oak hover:bg-sand transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobileMenu" class="hidden md:hidden bg-cream border-b border-oak/10 px-6 py-5 space-y-4">
+      <a href="#packages" onclick="toggleMobileMenu()" class="block text-base font-medium text-oak hover:text-forest">Packages</a>
+      <a href="#portfolio" onclick="toggleMobileMenu()" class="block text-base font-medium text-oak hover:text-forest">Portfolio</a>
+      <a href="#process" onclick="toggleMobileMenu()" class="block text-base font-medium text-oak hover:text-forest">Process</a>
+      <a href="#reviews" onclick="toggleMobileMenu()" class="block text-base font-medium text-oak hover:text-forest">Reviews</a>
+      <a href="#contact" onclick="toggleMobileMenu()" class="block text-base font-medium text-oak hover:text-forest">Contact</a>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       2. EDITORIAL SPLIT-SCREEN HERO SECTION
+       Edit headline, subheadline, hero image URL, and trust badges here.
+  ====================================================================== -->
+  <section class="pt-28 pb-16 lg:pt-36 lg:pb-24 px-6 lg:px-10 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+      <!-- Left Editorial Copy -->
+      <div class="lg:col-span-6 space-y-7">
+        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-sand border border-forest/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-forest"></span>
+          <span class="text-xs uppercase tracking-[0.2em] text-forest font-medium">
+            Booking 2026 &amp; 2027 Sessions
+          </span>
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl lg:text-[4.25rem] font-medium leading-[1.06] text-forest tracking-tight">
+          Timeless Portraits &amp; <br />
+          <span class="italic font-normal text-oakLight">Editorial</span> Storytelling.
+        </h1>
+
+        <p class="text-base sm:text-lg text-muted leading-relaxed max-w-xl font-light">
+          Natural light portraits, milestone graduations, romantic engagements, indoor studio headshots, and intimate weddings captured with warmth and intention. Customize your session and reserve your date online in seconds.
+        </p>
+
+        <!-- Primary & Secondary CTAs -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+          <button
+            onclick="openBookingModal()"
+            class="bg-forest hover:bg-oak text-cream text-sm font-medium uppercase tracking-widest px-8 py-4 rounded-full transition-all duration-300 shadow-soft text-center cursor-pointer"
+          >
+            Book a Session
+          </button>
+          <a
+            href="#packages"
+            class="border border-oak/25 hover:border-forest text-oak hover:text-forest text-sm font-medium uppercase tracking-widest px-8 py-4 rounded-full transition-all duration-300 text-center"
+          >
+            Explore Packages
+          </a>
+        </div>
+
+        <!-- Subtle Trust Badges -->
+        <div class="pt-6 border-t border-oak/15 grid grid-cols-3 gap-4 max-w-lg">
+          <div>
+            <p class="font-editorial text-2xl sm:text-3xl font-semibold text-forest">72 Hr</p>
+            <p class="text-xs text-muted mt-0.5">Sneak Peek Delivery</p>
+          </div>
+          <div>
+            <p class="font-editorial text-2xl sm:text-3xl font-semibold text-forest">35mm</p>
+            <p class="text-xs text-muted mt-0.5">Film Add-On Available</p>
+          </div>
+          <div>
+            <p class="font-editorial text-2xl sm:text-3xl font-semibold text-forest">Full</p>
+            <p class="text-xs text-muted mt-0.5">High-Res Print Release</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Editorial Image Frame -->
+      <div class="lg:col-span-6 relative">
+        <div class="relative rounded-[2rem] overflow-hidden shadow-soft aspect-[4/5] bg-sand border border-oak/10">
+          <!-- REPLACE WITH YOUR PHOTO: Hero Featured Portrait -->
+          <img
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85"
+            onerror="this.src='https://placehold.co/900x1100/F2EAD9/3B281E?text=Featured+Portrait'"
+            alt="Editorial Portrait Photography"
+            class="w-full h-full object-cover object-center"
+          />
+          <!-- Soft Warm Oaky Gradient Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-forestDeep/35 via-transparent to-transparent"></div>
+        </div>
+
+        <!-- Floating Editorial Card -->
+        <div class="hidden sm:flex items-center space-x-4 absolute -bottom-6 -left-6 bg-cream/95 backdrop-blur-md p-5 rounded-2xl shadow-soft border border-oak/10 max-w-xs">
+          <div class="w-12 h-12 rounded-full bg-forest text-cream flex items-center justify-center shrink-0">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-widest text-gold font-semibold">Custom Add-Ons</p>
+            <p class="text-sm font-medium text-oak mt-0.5">Locations, Outfits &amp; 35mm Film</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       3. PHOTOGRAPHY PACKAGES & SAMPLE WORK SHOWCASE
+       4 Distinct Packages: Graduation ($200), Engagement ($200),
+       Studio Portraits & Headshots ($100), and Wedding Photography ($500).
+  ====================================================================== -->
+  <section id="packages" class="py-20 lg:py-28 bg-sand/75 border-y border-oak/10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <!-- Section Header -->
+      <div class="max-w-2xl mx-auto text-center space-y-4 mb-14">
+        <span class="text-xs uppercase tracking-[0.25em] text-forest font-semibold">
+          Investment &amp; Offerings
+        </span>
+        <h2 class="text-4xl sm:text-5xl font-medium text-oak">
+          Photography Packages
+        </h2>
+        <p class="text-muted text-sm sm:text-base font-light">
+          Select a base session below, inspect sample shots from each category, and tailor your shoot with optional +$20 enhancements in your booking cart.
+        </p>
+      </div>
+
+      <!-- 4 Core Photography Package Cards (Rendered via JS from PACKAGES array) -->
+      <div id="packagesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Package Cards injected via JavaScript -->
+      </div>
+
+      <!-- Optional +$20 Enhancements Banner -->
+      <div class="mt-12 bg-cream rounded-3xl p-7 sm:p-9 border border-oak/15 shadow-card">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-1.5 max-w-xl">
+            <span class="text-[11px] uppercase tracking-[0.22em] text-forest font-semibold">
+              Optional Cart Enhancements • +$20 Each
+            </span>
+            <h3 class="text-2xl sm:text-3xl font-medium text-oak">
+              Customize Your Shoot Experience
+            </h3>
+            <p class="text-sm text-muted font-light">
+              Keep things effortless with your base session, or click to include any of these optional upgrades in Step 2 of your booking cart:
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 shrink-0">
+            <div class="px-4 py-3.5 rounded-2xl bg-sand border border-oak/10">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-semibold text-oak">Multiple Locations</span>
+                <span class="text-xs font-semibold text-forest">+$20</span>
+              </div>
+              <p class="text-[11px] text-muted mt-1">Second scenic backdrop</p>
+            </div>
+
+            <div class="px-4 py-3.5 rounded-2xl bg-sand border border-oak/10">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-semibold text-oak">Outfit Changes</span>
+                <span class="text-xs font-semibold text-forest">+$20</span>
+              </div>
+              <p class="text-[11px] text-muted mt-1">Wardrobe switch flexibility</p>
+            </div>
+
+            <div class="px-4 py-3.5 rounded-2xl bg-sand border border-oak/10">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-semibold text-oak">35mm Film Shots</span>
+                <span class="text-xs font-semibold text-forest">+$20</span>
+              </div>
+              <p class="text-[11px] text-muted mt-1">Scanned vintage film frames</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       4. DEDICATED "SELECTED WORKS" FILTERABLE PORTFOLIO GRID
+       Filterable by All Work, Graduation, Engagement, Studio Portraits, Weddings.
+       Clicking any shot opens the full-screen Lightbox modal.
+  ====================================================================== -->
+  <section id="portfolio" class="py-20 lg:py-28 px-6 lg:px-10 max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+      <div>
+        <span class="text-xs uppercase tracking-[0.25em] text-forest font-semibold">
+          Selected Works
+        </span>
+        <h2 class="text-4xl sm:text-5xl font-medium text-oak mt-2">
+          Recent Client Galleries
+        </h2>
+      </div>
+
+      <!-- Portfolio Category Filter Tabs -->
+      <div id="portfolioFilterTabs" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+
+    <!-- Filterable Portfolio Masonry/Grid -->
+    <div id="portfolioGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Portfolio Photos Injected via JavaScript -->
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       5. HOW IT WORKS / PHOTOGRAPHY PROCESS SECTION
+       Deep Forest Green editorial section with Pastel Cream & Bronze accents.
+  ====================================================================== -->
+  <section id="process" class="py-20 bg-forestDeep text-cream">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="max-w-2xl mb-14">
+        <span class="text-xs uppercase tracking-[0.25em] text-gold font-semibold">
+          The Experience
+        </span>
+        <h2 class="text-4xl sm:text-5xl font-medium mt-2 text-cream">
+          Effortless from First Click to Final Gallery
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-8 rounded-3xl bg-forest/70 border border-cream/10 space-y-3">
+          <span class="font-editorial text-3xl text-gold italic">01.</span>
+          <h3 class="text-2xl font-medium text-cream">Customize &amp; Reserve</h3>
+          <p class="text-sm text-cream/80 font-light leading-relaxed">
+            Pick your session type—Graduation, Engagement, Studio Portraits, or Wedding—and toggle optional +$20 add-ons like extra locations, outfit changes, or 35mm film.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-forest/70 border border-cream/10 space-y-3">
+          <span class="font-editorial text-3xl text-gold italic">02.</span>
+          <h3 class="text-2xl font-medium text-cream">Guided, Unhurried Shoot</h3>
+          <p class="text-sm text-cream/80 font-light leading-relaxed">
+            No stiff or awkward posing. We direct you naturally with flattering lighting—whether in our controlled indoor studio or outdoors during golden hour.
+          </p>
+        </div>
+
+        <div class="p-8 rounded-3xl bg-forest/70 border border-cream/10 space-y-3">
+          <span class="font-editorial text-3xl text-gold italic">03.</span>
+          <h3 class="text-2xl font-medium text-cream">Curated Online Gallery</h3>
+          <p class="text-sm text-cream/80 font-light leading-relaxed">
+            Receive sneak peeks within 72 hours followed by your full high-resolution, hand-edited digital gallery with full personal printing and sharing rights.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       6. CLIENT TESTIMONIALS / REVIEWS
+       Replace these placeholder quotes with real client reviews.
+  ====================================================================== -->
+  <section id="reviews" class="py-20 lg:py-28 px-6 lg:px-10 max-w-7xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+      <span class="text-xs uppercase tracking-[0.25em] text-forest font-semibold">
+        Client Kind Words
+      </span>
+      <h2 class="text-4xl sm:text-5xl font-medium text-oak">
+        Stories Behind the Lens
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Review 1 -->
+      <div class="bg-cream p-8 rounded-3xl shadow-card border border-oak/10 flex flex-col justify-between">
+        <div>
+          <div class="text-gold text-sm tracking-widest mb-4">★★★★★</div>
+          <p class="text-oak/90 font-light leading-relaxed italic">
+            "I booked my graduation session with the multiple locations and 35mm film add-ons—the campus portraits look timeless and straight out of an editorial magazine!"
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-oak/10 flex items-center justify-between">
+          <span class="font-medium text-sm text-oak">Maya R.</span>
+          <span class="text-xs text-forest font-medium">Graduation Session</span>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="bg-cream p-8 rounded-3xl shadow-card border border-oak/10 flex flex-col justify-between">
+        <div>
+          <div class="text-gold text-sm tracking-widest mb-4">★★★★★</div>
+          <p class="text-oak/90 font-light leading-relaxed italic">
+            "The $100 indoor studio headshot session was relaxed, guided, and super refined. I added an outfit change and got portraits I love for both LinkedIn and my brand."
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-oak/10 flex items-center justify-between">
+          <span class="font-medium text-sm text-oak">Elena V.</span>
+          <span class="text-xs text-forest font-medium">Studio Headshots</span>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="bg-cream p-8 rounded-3xl shadow-card border border-oak/10 flex flex-col justify-between">
+        <div>
+          <div class="text-gold text-sm tracking-widest mb-4">★★★★★</div>
+          <p class="text-oak/90 font-light leading-relaxed italic">
+            "From our sunset engagement shoot to our wedding ceremony, every candid moment was captured with such warmth and artistry. We treasure every single frame."
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-oak/10 flex items-center justify-between">
+          <span class="font-medium text-sm text-oak">Claire &amp; Thomas</span>
+          <span class="text-xs text-forest font-medium">Engagement &amp; Wedding</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       7. FOOTER & STUDIO DETAILS
+       Edit your studio location, phone number, email, and availability here.
+  ====================================================================== -->
+  <footer id="contact" class="bg-sand border-t border-oak/15 pt-16 pb-12 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-oak/15">
+        <!-- Brand Column -->
+        <div class="space-y-4">
+          <span class="font-editorial text-2xl tracking-wider font-semibold text-forest uppercase block">
+            Atelier <span class="italic font-normal text-gold">Lumière</span>
+          </span>
+          <p class="text-sm text-muted font-light leading-relaxed">
+            Editorial portraits, graduation milestones, romantic engagements, studio headshots, and intimate wedding photography.
+          </p>
+        </div>
+
+        <!-- Location & Contact -->
+        <div class="space-y-3">
+          <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-oak">Studio &amp; Travel</h4>
+          <p class="text-sm text-muted font-light">
+            Natural Light &amp; Indoor Studio<br />
+            Available Local &amp; On-Location
+          </p>
+          <p class="text-sm text-oak font-medium pt-1">
+            <a href="tel:+15552345678" class="hover:text-forest transition-colors">(555) 234-5678</a>
+          </p>
+          <p class="text-sm text-muted">
+            <a href="mailto:hello@atelierlumiere.com" class="hover:text-forest transition-colors">hello@atelierlumiere.com</a>
+          </p>
+        </div>
+
+        <!-- Session Hours -->
+        <div class="space-y-3">
+          <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-oak">Shooting Windows</h4>
+          <ul class="text-sm text-muted font-light space-y-1.5">
+            <li class="flex justify-between"><span>Studio Portraits</span><span class="text-oak font-normal">Tue – Sat • 10 AM – 4 PM</span></li>
+            <li class="flex justify-between"><span>Golden Hour</span><span class="text-oak font-normal">Daily • 2 Hrs Pre-Sunset</span></li>
+            <li class="flex justify-between"><span>Weddings</span><span class="text-oak font-normal">Fri – Sun • Full/Half Day</span></li>
+          </ul>
+        </div>
+
+        <!-- Quick Book CTA -->
+        <div class="space-y-4">
+          <h4 class="text-xs uppercase tracking-[0.2em] font-semibold text-oak">Reserve Your Date</h4>
+          <p class="text-sm text-muted font-light">
+            Build your custom session package and lock in your date online.
+          </p>
+          <button
+            onclick="openBookingModal()"
+            class="w-full bg-forest hover:bg-oak text-cream text-xs uppercase tracking-widest font-medium py-3.5 px-6 rounded-full transition-colors cursor-pointer"
+          >
+            Book a Session
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-muted gap-4">
+        <p>© <span id="yearSpan"></span> Atelier Lumière Photography. All rights reserved.</p>
+        <div class="flex items-center space-x-6">
+          <a href="#" class="hover:text-forest transition-colors">Instagram</a>
+          <a href="#" class="hover:text-forest transition-colors">Pinterest</a>
+          <a href="#packages" class="hover:text-forest transition-colors">Pricing Guide</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       8. LIGHTBOX MODAL FOR INSPECTING SAMPLE PORTFOLIO SHOTS
+  ====================================================================== -->
+  <div
+    id="lightboxModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-8"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div
+      onclick="closeLightbox()"
+      class="fixed inset-0 bg-forestDeep/85 backdrop-blur-md"
+    ></div>
+
+    <div class="relative z-10 max-w-4xl w-full bg-cream rounded-3xl overflow-hidden shadow-2xl border border-oak/20">
+      <button
+        onclick="closeLightbox()"
+        aria-label="Close Image Preview"
+        class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-forest/90 hover:bg-oak text-cream flex items-center justify-center transition-colors cursor-pointer"
+      >
+        ✕
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-12">
+        <div class="md:col-span-8 bg-forestDeep flex items-center justify-center max-h-[75vh] overflow-hidden">
+          <img
+            id="lightboxImg"
+            src=""
+            alt="Portfolio Sample"
+            class="w-full h-full object-contain max-h-[75vh]"
+          />
+        </div>
+        <div class="md:col-span-4 p-6 sm:p-8 flex flex-col justify-between bg-cream">
+          <div class="space-y-3">
+            <span id="lightboxCategory" class="text-[11px] uppercase tracking-[0.22em] text-forest font-semibold block"></span>
+            <h3 id="lightboxTitle" class="text-2xl sm:text-3xl font-semibold text-oak"></h3>
+            <p id="lightboxDesc" class="text-sm text-muted font-light leading-relaxed"></p>
+          </div>
+
+          <div class="pt-6 mt-6 border-t border-oak/15 space-y-3">
+            <button
+              id="lightboxBookBtn"
+              class="w-full bg-forest hover:bg-oak text-cream text-xs uppercase tracking-widest font-medium py-3.5 px-5 rounded-full transition-colors cursor-pointer"
+            >
+              Book This Style →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       9. INTERACTIVE 4-STEP CART & APPOINTMENT BOOKING MODAL
+       Step 1: Choose Base Session (Graduation $200, Engagement $200,
+               Studio Portraits $100, Wedding $500)
+       Step 2: Optional +$20 Add-Ons (Multiple Locations, Outfit Changes, 35mm Film)
+       Step 3: Choose Date & Time Slot
+       Step 4: Client Info & Itemized Confirmation Receipt (Formspree / Cal.com ready)
+  ====================================================================== -->
+  <div
+    id="bookingModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6"
+    role="dialog"
+    aria-modal="true"
+  >
+    <!-- Dark Forest Blur Overlay -->
+    <div
+      onclick="closeBookingModal()"
+      class="modal-backdrop fixed inset-0 bg-forestDeep/65 backdrop-blur-sm"
+    ></div>
+
+    <!-- Modal Card -->
+    <div class="modal-panel relative w-full max-w-2xl bg-cream rounded-3xl shadow-2xl border border-oak/15 overflow-hidden z-10 flex flex-col max-h-[92vh]">
+      <!-- Modal Top Header -->
+      <div class="px-6 sm:px-8 py-5 bg-sand border-b border-oak/10 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] uppercase tracking-[0.22em] text-forest font-semibold block">
+            Session Cart &amp; Booking
+          </span>
+          <h3 id="modalStepTitle" class="text-2xl font-semibold text-oak">
+            1. Select Base Session
+          </h3>
+        </div>
+        <button
+          onclick="closeBookingModal()"
+          aria-label="Close Booking Modal"
+          class="w-9 h-9 rounded-full bg-cream hover:bg-forest hover:text-cream text-oak flex items-center justify-center transition-colors cursor-pointer"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Progress Indicator Bar -->
+      <div class="w-full bg-sandDark h-1.5">
+        <div id="modalProgressBar" class="bg-forest h-full transition-all duration-300" style="width: 25%"></div>
+      </div>
+
+      <!-- Scrollable Step Content -->
+      <div class="p-6 sm:p-8 overflow-y-auto flex-1 space-y-6">
+        <!-- Validation Message Banner -->
+        <div id="bookingErrorBanner" class="hidden p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-sm"></div>
+
+        <!-- STEP 1: CHOOSE BASE PHOTOGRAPHY SESSION -->
+        <div id="step1Content" class="space-y-4">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs uppercase tracking-widest text-muted font-semibold">
+              Choose Your Photography Package
+            </label>
+            <span class="text-[11px] text-forest font-medium">Step 1 of 4</span>
+          </div>
+          <div id="modalPackageList" class="space-y-3">
+            <!-- Populated dynamically via JS with all 4 packages -->
+          </div>
+        </div>
+
+        <!-- STEP 2: OPTIONAL +$20 ADD-ONS -->
+        <div id="step2Content" class="hidden space-y-5">
+          <div class="p-4 rounded-2xl bg-sand border border-oak/10 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] uppercase tracking-widest text-forest font-semibold block">Selected Base Package</span>
+              <p id="step2SelectedPkgName" class="font-semibold text-oak text-base"></p>
+            </div>
+            <span id="step2SelectedPkgPrice" class="font-editorial text-2xl font-semibold text-forest"></span>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <label class="block text-xs uppercase tracking-widest text-muted font-semibold">
+                Optional Session Add-Ons (+$20 Each)
+              </label>
+              <span class="text-[11px] text-gold font-medium">Optional — Skip or Select Any</span>
+            </div>
+            <div id="modalAddonsList" class="space-y-3">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: CHOOSE DATE & TIME -->
+        <div id="step3Content" class="hidden space-y-6">
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-muted font-semibold mb-3">
+              Select Preferred Date
+            </label>
+            <div id="datePickerGrid" class="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
+              <!-- Populated dynamically with upcoming dates -->
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs uppercase tracking-widest text-muted font-semibold mb-3">
+              Available Lighting &amp; Time Windows
+            </label>
+            <div id="timeSlotsGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              <!-- Populated dynamically with time slots -->
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4: CLIENT DETAILS & ITEMIZED RECEIPT -->
+        <div id="step4Content" class="hidden space-y-5">
+          <!-- Client Details Form (Visible before confirmation) -->
+          <div id="step4FormWrapper" class="space-y-4">
+            <!-- Selected Cart Overview Banner -->
+            <div class="p-4 rounded-2xl bg-sand border border-forest/20 flex items-start justify-between gap-4">
+              <div>
+                <p id="summaryServiceName" class="font-semibold text-oak text-sm"></p>
+                <p id="summaryAddonsText" class="text-xs text-forest font-medium mt-0.5"></p>
+                <p id="summaryDateTime" class="text-xs text-muted mt-1"></p>
+              </div>
+              <div class="text-right shrink-0">
+                <span class="text-[10px] uppercase tracking-wider text-muted block">Cart Total</span>
+                <span id="summaryPrice" class="font-editorial text-2xl font-semibold text-forest"></span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+              <div>
+                <label class="block text-xs uppercase tracking-wider text-oak font-medium mb-1.5">Full Name *</label>
+                <input
+                  type="text"
+                  id="clientName"
+                  placeholder="Jane Doe"
+                  class="w-full px-4 py-3 rounded-xl bg-white border border-oak/15 focus:border-forest focus:outline-none text-sm"
+                />
+              </div>
+              <div>
+                <label class="block text-xs uppercase tracking-wider text-oak font-medium mb-1.5">Phone Number *</label>
+                <input
+                  type="tel"
+                  id="clientPhone"
+                  placeholder="(555) 123-4567"
+                  class="w-full px-4 py-3 rounded-xl bg-white border border-oak/15 focus:border-forest focus:outline-none text-sm"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs uppercase tracking-wider text-oak font-medium mb-1.5">Email Address *</label>
+                <input
+                  type="email"
+                  id="clientEmail"
+                  placeholder="jane@example.com"
+                  class="w-full px-4 py-3 rounded-xl bg-white border border-oak/15 focus:border-forest focus:outline-none text-sm"
+                />
+              </div>
+              <div>
+                <label class="block text-xs uppercase tracking-wider text-oak font-medium mb-1.5">Instagram Handle (Optional)</label>
+                <input
+                  type="text"
+                  id="clientInstagram"
+                  placeholder="@yourhandle"
+                  class="w-full px-4 py-3 rounded-xl bg-white border border-oak/15 focus:border-forest focus:outline-none text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs uppercase tracking-wider text-oak font-medium mb-1.5">Location Ideas or Shoot Vision (Optional)</label>
+              <textarea
+                id="clientNotes"
+                rows="2"
+                placeholder="Share campus spots, studio backdrop colors, wedding venue, or inspiration..."
+                class="w-full px-4 py-3 rounded-xl bg-white border border-oak/15 focus:border-forest focus:outline-none text-sm"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Itemized Confirmation Receipt (Shown once client submits Step 4) -->
+          <div id="step4ReceiptWrapper" class="hidden text-center py-2 space-y-5">
+            <div class="w-16 h-16 rounded-full bg-forest text-cream flex items-center justify-center mx-auto text-2xl shadow-sm">
+              ✓
+            </div>
+            <div class="space-y-1.5">
+              <h4 class="text-3xl font-medium text-oak">Session Request Sent</h4>
+              <p class="text-sm text-muted max-w-md mx-auto">
+                Thank you, <span id="confirmClientName" class="text-oak font-medium"></span>! Your booking request has been logged for <span id="confirmClientEmail" class="text-oak font-medium"></span>.
+              </p>
+            </div>
+
+            <!-- Itemized Receipt Card -->
+            <div class="bg-sand rounded-2xl p-5 max-w-md mx-auto text-left space-y-2.5 border border-oak/15 text-sm">
+              <div class="flex justify-between">
+                <span class="text-muted">Base Package:</span>
+                <span id="confirmService" class="font-medium text-oak"></span>
+              </div>
+              <div id="confirmAddonsContainer" class="space-y-1.5">
+                <!-- Selected +$20 add-ons itemized here -->
+              </div>
+              <div class="flex justify-between pt-2 border-t border-oak/10">
+                <span class="text-muted">Date &amp; Time:</span>
+                <span id="confirmDateTime" class="font-medium text-oak"></span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-muted">Est. Duration:</span>
+                <span id="confirmDuration" class="font-medium text-oak"></span>
+              </div>
+              <div class="flex justify-between pt-2.5 border-t border-oak/10 items-baseline">
+                <span class="font-semibold text-oak">Estimated Total:</span>
+                <span id="confirmPrice" class="font-editorial text-2xl font-semibold text-forest"></span>
+              </div>
+            </div>
+
+            <div class="pt-1 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button
+                type="button"
+                onclick="copyBookingReceipt()"
+                id="copyReceiptBtn"
+                class="text-xs uppercase tracking-widest font-medium text-forest hover:text-oak underline underline-offset-4 cursor-pointer"
+              >
+                Copy Booking Summary
+              </button>
+              <!-- Optional Cal.com Direct Scheduling Link (Uncomment & add your Cal.com URL when live) -->
+              <!-- <a href="https://cal.com/your-studio-handle" target="_blank" rel="noopener" class="text-xs uppercase tracking-widest font-semibold text-gold hover:text-oak underline underline-offset-4">Sync to Live Calendar →</a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky Live Cart Total & Footer Controls -->
+      <div id="modalFooter" class="px-6 sm:px-8 py-4 bg-sand border-t border-oak/10 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <button
+            id="modalBackBtn"
+            onclick="prevStep()"
+            class="hidden text-xs uppercase tracking-widest font-medium text-oak/75 hover:text-forest py-2 cursor-pointer"
+          >
+            ← Back
+          </button>
+
+          <!-- Live Cart Total Pill -->
+          <div id="liveCartBar">
+            <span class="text-[10px] uppercase tracking-widest text-muted block">Estimated Total</span>
+            <div class="flex items-baseline gap-2">
+              <span id="liveTotalDisplay" class="font-editorial text-2xl font-semibold text-forest">$200</span>
+              <span id="liveBreakdownDisplay" class="text-[11px] text-muted hidden sm:inline">$200 base session</span>
+            </div>
+          </div>
+        </div>
+
+        <button
+          id="modalNextBtn"
+          onclick="nextStep()"
+          class="bg-forest hover:bg-oak text-cream text-xs uppercase tracking-widest font-medium px-7 py-3.5 rounded-full transition-colors cursor-pointer shrink-0"
+        >
+          Continue →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       JAVASCRIPT: 4 PHOTOGRAPHY PACKAGES, PORTFOLIO GALLERY, & LIVE CART LOGIC
+  ====================================================================== -->
+  <script>
+    // =========================================================================
+    // LIVE BOOKING INTEGRATION CONFIG (Make this website real in 2 minutes!)
+    // 1. FORMSPREE (Free instant email notifications when a client books):
+    //    Sign up at https://formspree.io, create a form, and paste your endpoint URL below:
+    const FORMSPREE_ENDPOINT = ''; // e.g., 'https://formspree.io/f/yourFormId'
+
+    // 2. CAL.COM (Optional live calendar sync):
+    //    Create a free account at https://cal.com and paste your booking link below if desired:
+    const CALCOM_BOOKING_URL = ''; // e.g., 'https://cal.com/your-studio-name'
+    // =========================================================================
+
+    // 1. CORE PHOTOGRAPHY PACKAGES (4 Distinct Sessions)
+    const PACKAGES = [
+      {
+        id: 'graduation',
+        category: 'Graduation',
+        name: 'Graduation Sessions',
+        badge: 'Class Milestone',
+        duration: '60 min',
+        basePrice: 200,
+        description:
+          'Celebrate your degree with golden-hour campus portraits, cap-and-gown editorial shots, and celebratory champagne or confetti frames.',
+        deliverables: [
+          '40+ hand-edited high-resolution graduation photos',
+          'Online private gallery & full print release',
+          'Campus landmark & posing direction included',
+        ],
+        // REPLACE WITH YOUR PHOTOS: Sample Graduation shots
+        samples: [
+          {
+            url: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80',
+            title: 'Golden Hour Cap & Gown Portrait',
+            caption: 'Warm editorial graduation portrait on campus.',
+          },
+          {
+            url: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80',
+            title: 'Campus Architecture & Stole Detail',
+            caption: 'Classic university columns and natural light framing.',
+          },
+          {
+            url: 'https://images.unsplash.com/photo-1627556704290-2b1f5853ff78?auto=format&fit=crop&w=800&q=80',
+            title: 'Senior Celebration Portraits',
+            caption: 'Candid movement and milestone storytelling.',
+          },
+        ],
+      },
+      {
+        id: 'engagement',
+        category: 'Engagement',
+        name: 'Engagement Sessions',
+        badge: 'Couples & Save-the-Date',
+        duration: '75 min',
+        basePrice: 200,
+        description:
+          'Intimate, movement-driven outdoor engagement photography tailored for save-the-dates, wedding websites, and heirloom prints.',
+        deliverables: [
+          '45+ hand-edited high-resolution couple photos',
+          'Online private gallery & print release',
+          'Scenic golden-hour location scouting',
+        ],
+        // REPLACE WITH YOUR PHOTOS: Sample Engagement shots
+        samples: [
+          {
+            url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
+            title: 'Sunset Meadow Engagement',
+            caption: 'Warm golden-hour movement and unscripted laughter.',
+          },
+          {
+            url: 'https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?auto=format&fit=crop&w=800&q=80',
+            title: 'Editorial Couple Storytelling',
+            caption: 'Romantic framing designed for save-the-date cards.',
+          },
+          {
+            url: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80',
+            title: 'Intimate Ring & Embrace Close-Up',
+            caption: 'Soft natural light portraits with film-inspired warmth.',
+          },
+        ],
+      },
+      {
+        id: 'studio-portraits',
+        category: 'Studio Portraits',
+        name: 'Studio Portraits & Headshots',
+        badge: 'Indoor / Studio',
+        duration: '45 min',
+        basePrice: 100,
+        description:
+          'Controlled indoor studio lighting session tailored for crisp headshots, creatives, actors, and personal branding.',
+        deliverables: [
+          '15+ retouched high-resolution portraits',
+          'Choice of clean editorial studio backdrops',
+          '48-hour express gallery turnaround',
+        ],
+        // REPLACE WITH YOUR PHOTOS: Sample Studio Portrait shots
+        samples: [
+          {
+            url: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80',
+            title: 'Editorial Studio Portrait',
+            caption: 'Sculpted indoor studio lighting on neutral backdrop.',
+          },
+          {
+            url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
+            title: 'Executive & Creative Headshot',
+            caption: 'Clean, confident framing for LinkedIn & press kits.',
+          },
+          {
+            url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80',
+            title: 'Natural Beauty Studio Close-Up',
+            caption: 'Soft-box studio portrait with true-to-life skin tones.',
+          },
+        ],
+      },
+      {
+        id: 'wedding-photo',
+        category: 'Weddings',
+        name: 'Wedding Photography',
+        badge: 'Ceremony & Portraits',
+        duration: 'Up to 4 hrs',
+        basePrice: 500,
+        description:
+          'Candid ceremony, bridal party, and romantic couple portrait coverage capturing every emotional detail of your day.',
+        deliverables: [
+          '200+ edited high-resolution wedding photos',
+          'Pre-wedding timeline & shot-list call',
+          '72-hour sneak peek highlights gallery',
+        ],
+        // REPLACE WITH YOUR PHOTOS: Sample Wedding shots
+        samples: [
+          {
+            url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+            title: 'Editorial Bride & Groom Portraits',
+            caption: 'Timeless documentary & romantic wedding framing.',
+          },
+          {
+            url: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80',
+            title: 'Intimate Ceremony Vows',
+            caption: 'Unscripted emotion captured with natural warmth.',
+          },
+          {
+            url: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80',
+            title: 'Golden Hour Wedding Walk',
+            caption: 'Post-ceremony portraits in soft evening light.',
+          },
+        ],
+      },
+    ];
+
+    // 2. OPTIONAL +$20 ADD-ONS (Clients can click to add any of these to their booking cart)
+    const ADDONS = [
+      {
+        id: 'location-change',
+        name: 'Multiple Locations',
+        price: 20,
+        description: 'Travel to a second nearby scenic spot or backdrop during your shoot.',
+      },
+      {
+        id: 'outfit-change',
+        name: 'Outfit Changes',
+        price: 20,
+        description: 'Extra session time & styling flexibility for wardrobe switches.',
+      },
+      {
+        id: 'film-shots',
+        name: '35mm / Vintage Film Shots Included',
+        price: 20,
+        description: 'Authentic analog 35mm film frames developed, scanned, and added to your gallery.',
+      },
+    ];
+
+    // 3. AVAILABLE SHOOTING TIME SLOTS
+    const TIME_SLOTS = [
+      '9:30 AM (Morning Light)',
+      '11:30 AM (Studio)',
+      '2:00 PM (Afternoon)',
+      '4:30 PM (Golden Hour)',
+      '5:45 PM (Sunset)',
+      'Full / Custom Window',
+    ];
+
+    // Application State
+    let activePortfolioFilter = 'All Work';
+    let currentStep = 1;
+    let isBookingConfirmed = false;
+    let bookingState = {
+      package: PACKAGES[0], // Defaults to $200 Graduation Session
+      selectedAddons: [], // Array of addon IDs
+      date: '',
+      time: '',
+      name: '',
+      email: '',
+      phone: '',
+      instagram: '',
+      notes: '',
+    };
+
+    // Initialize Page on Load
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('yearSpan').textContent = new Date().getFullYear();
+      renderPackagesGrid();
+      renderPortfolioFilterTabs();
+      renderPortfolioGrid();
+      renderUpcomingDates();
+      renderTimeSlots();
+      updateLiveCartTotal();
+    });
+
+    // Toggle Mobile Navigation
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Calculate Current Cart Total (Base Package + $20 per selected add-on)
+    function calculateCartTotal() {
+      const base = bookingState.package ? bookingState.package.basePrice : 0;
+      const addonsTotal = bookingState.selectedAddons.reduce((sum, addonId) => {
+        const found = ADDONS.find((a) => a.id === addonId);
+        return sum + (found ? found.price : 0);
+      }, 0);
+      return base + addonsTotal;
+    }
+
+    // Update Sticky Cart Total Bar inside Modal
+    function updateLiveCartTotal() {
+      const total = calculateCartTotal();
+      const count = bookingState.selectedAddons.length;
+      document.getElementById('liveTotalDisplay').textContent = `$${total}`;
+      document.getElementById('liveBreakdownDisplay').textContent =
+        count > 0
+          ? `$${bookingState.package.basePrice} base + ${count} add-on${count > 1 ? 's' : ''} (+$${count * 20})`
+          : `$${bookingState.package.basePrice} base session`;
+    }
+
+    // Render the 4 Core Photography Package Cards with Sample Photos
+    function renderPackagesGrid() {
+      const grid = document.getElementById('packagesGrid');
+      grid.innerHTML = PACKAGES.map((pkg) => {
+        const samplesHtml = pkg.samples
+          .map(
+            (sample, idx) => `
+            <button
+              type="button"
+              onclick="openLightbox('${pkg.id}', ${idx})"
+              class="group/img relative aspect-[4/5] rounded-xl overflow-hidden bg-sand focus:outline-none cursor-pointer border border-oak/10"
+              title="Click to inspect sample shot"
+            >
+              <!-- REPLACE WITH YOUR PHOTO -->
+              <img
+                src="${sample.url}"
+                onerror="this.src='https://placehold.co/400x500/F2EAD9/3B281E?text=Sample+${idx + 1}'"
+                alt="${sample.title}"
+                class="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-forestDeep/0 group-hover/img:bg-forestDeep/40 transition-colors flex items-center justify-center">
+                <span class="opacity-0 group-hover/img:opacity-100 text-[10px] uppercase tracking-widest bg-cream/95 text-forest px-2.5 py-1 rounded-full font-semibold transition-opacity">
+                  View
+                </span>
+              </div>
+            </button>
+          `
+          )
+          .join('');
+
+        const deliverablesHtml = pkg.deliverables
+          .map(
+            (item) => `
+            <li class="flex items-start gap-2 text-xs text-oak/85">
+              <span class="text-forest font-bold mt-0.5">✓</span>
+              <span>${item}</span>
+            </li>
+          `
+          )
+          .join('');
+
+        return `
+          <div class="bg-cream rounded-[2rem] p-7 sm:p-8 border border-oak/15 shadow-card hover:shadow-soft transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <!-- Top Badge & Duration -->
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="text-[11px] uppercase tracking-widest text-forest font-semibold">
+                  ${pkg.badge}
+                </span>
+                <span class="text-xs text-oak bg-sand px-3 py-1 rounded-full border border-oak/10">
+                  ${pkg.duration}
+                </span>
+              </div>
+
+              <!-- Package Title & Price -->
+              <div class="flex items-baseline justify-between gap-3">
+                <h3 class="text-3xl font-semibold text-oak leading-tight">
+                  ${pkg.name}
+                </h3>
+              </div>
+
+              <div class="mt-2 flex items-baseline gap-2">
+                <span class="font-editorial text-4xl font-semibold text-forest">$${pkg.basePrice}</span>
+                <span class="text-xs text-muted uppercase tracking-wider">Base Session</span>
+              </div>
+
+              <p class="text-sm text-muted font-light leading-relaxed mt-3">
+                ${pkg.description}
+              </p>
+
+              <!-- Sample Portfolio Shots Strip Inside Package Card -->
+              <div class="mt-5">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[10px] uppercase tracking-[0.2em] text-muted font-semibold">
+                    Sample Work (Click to Enlarge)
+                  </span>
+                  <button
+                    type="button"
+                    onclick="openLightbox('${pkg.id}', 0)"
+                    class="text-[11px] text-forest hover:text-gold font-medium transition-colors cursor-pointer"
+                  >
+                    Gallery →
+                  </button>
+                </div>
+                <div class="grid grid-cols-3 gap-2.5">
+                  ${samplesHtml}
+                </div>
+              </div>
+
+              <!-- Included Deliverables -->
+              <ul class="mt-5 pt-5 border-t border-oak/10 space-y-2">
+                ${deliverablesHtml}
+              </ul>
+            </div>
+
+            <!-- Action CTA -->
+            <div class="pt-6 mt-6">
+              <button
+                onclick="openBookingModal('${pkg.id}')"
+                class="w-full bg-forest hover:bg-oak text-cream text-xs uppercase tracking-widest font-medium py-4 px-6 rounded-full transition-colors cursor-pointer shadow-sm"
+              >
+                Select &amp; Customize →
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Build Flat List of All Portfolio Shots from PACKAGES
+    function getAllPortfolioShots() {
+      const shots = [];
+      PACKAGES.forEach((pkg) => {
+        pkg.samples.forEach((sample, idx) => {
+          shots.push({
+            packageId: pkg.id,
+            sampleIndex: idx,
+            category: pkg.category,
+            packageName: pkg.name,
+            basePrice: pkg.basePrice,
+            ...sample,
+          });
+        });
+      });
+      return shots;
+    }
+
+    // Render Portfolio Filter Tabs (All 5 Categories)
+    function renderPortfolioFilterTabs() {
+      const filters = ['All Work', 'Graduation', 'Engagement', 'Studio Portraits', 'Weddings'];
+      const container = document.getElementById('portfolioFilterTabs');
+      container.innerHTML = filters
+        .map((f) => {
+          const isActive = f === activePortfolioFilter;
+          return `
+            <button
+              onclick="setPortfolioFilter('${f}')"
+              class="px-4 py-2 rounded-full text-xs uppercase tracking-widest font-medium whitespace-nowrap transition-all cursor-pointer ${
+                isActive
+                  ? 'bg-forest text-cream shadow-sm'
+                  : 'bg-sand text-oak/80 hover:text-forest border border-oak/15'
+              }"
+            >
+              ${f}
+            </button>
+          `;
+        })
+        .join('');
+    }
+
+    function setPortfolioFilter(filter) {
+      activePortfolioFilter = filter;
+      renderPortfolioFilterTabs();
+      renderPortfolioGrid();
+    }
+
+    // Render Main Selected Works Portfolio Grid
+    function renderPortfolioGrid() {
+      const grid = document.getElementById('portfolioGrid');
+      const allShots = getAllPortfolioShots();
+      const filtered =
+        activePortfolioFilter === 'All Work'
+          ? allShots
+          : allShots.filter((s) => s.category === activePortfolioFilter);
+
+      grid.innerHTML = filtered
+        .map(
+          (shot) => `
+          <div
+            onclick="openLightbox('${shot.packageId}', ${shot.sampleIndex})"
+            class="group relative rounded-3xl overflow-hidden aspect-[4/5] bg-sand shadow-card border border-oak/10 cursor-pointer"
+          >
+            <!-- REPLACE WITH YOUR PHOTO -->
+            <img
+              src="${shot.url}"
+              onerror="this.src='https://placehold.co/700x875/F2EAD9/3B281E?text=${encodeURIComponent(shot.category)}'"
+              alt="${shot.title}"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-forestDeep/85 via-forestDeep/20 to-transparent opacity-85 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span class="text-[10px] uppercase tracking-[0.22em] text-gold font-semibold">
+                ${shot.category} • $${shot.basePrice} Base
+              </span>
+              <h3 class="text-2xl font-medium text-cream mt-0.5">${shot.title}</h3>
+              <p class="text-xs text-cream/85 font-light mt-1">${shot.caption}</p>
+            </div>
+          </div>
+        `
+        )
+        .join('');
+    }
+
+    // Lightbox Preview Controls
+    function openLightbox(packageId, sampleIndex) {
+      const pkg = PACKAGES.find((p) => p.id === packageId);
+      if (!pkg || !pkg.samples[sampleIndex]) return;
+      const sample = pkg.samples[sampleIndex];
+
+      document.getElementById('lightboxImg').src = sample.url;
+      document.getElementById('lightboxCategory').textContent = `${pkg.category} • $${pkg.basePrice} Base`;
+      document.getElementById('lightboxTitle').textContent = sample.title;
+      document.getElementById('lightboxDesc').textContent = `${sample.caption} Included in our ${pkg.name} package (${pkg.duration}).`;
+
+      const bookBtn = document.getElementById('lightboxBookBtn');
+      bookBtn.onclick = () => {
+        closeLightbox();
+        openBookingModal(pkg.id);
+      };
+
+      const modal = document.getElementById('lightboxModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightboxModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    // Open Booking Cart Modal (Optionally pre-selecting a package)
+    function openBookingModal(packageId = null) {
+      if (packageId) {
+        const found = PACKAGES.find((p) => p.id === packageId);
+        if (found) bookingState.package = found;
+      }
+      currentStep = 1;
+      isBookingConfirmed = false;
+      document.getElementById('step4FormWrapper').classList.remove('hidden');
+      document.getElementById('step4ReceiptWrapper').classList.add('hidden');
+      hideError();
+      renderModalPackages();
+      renderModalAddons();
+      updateLiveCartTotal();
+      updateModalStepUI();
+
+      const modal = document.getElementById('bookingModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBookingModal() {
+      const modal = document.getElementById('bookingModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    // Render Base Packages in Step 1
+    function renderModalPackages() {
+      const pkgContainer = document.getElementById('modalPackageList');
+      pkgContainer.innerHTML = PACKAGES.map((pkg) => {
+        const selected = bookingState.package && bookingState.package.id === pkg.id;
+        return `
+          <div
+            onclick="selectModalPackage('${pkg.id}')"
+            class="p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-4 ${
+              selected
+                ? 'bg-sand border-forest shadow-sm'
+                : 'bg-white border-oak/10 hover:border-forest/50'
+            }"
+          >
+            <div class="flex items-center gap-3.5">
+              <img
+                src="${pkg.samples[0].url}"
+                alt="${pkg.name}"
+                class="w-12 h-14 rounded-xl object-cover shrink-0 bg-sand border border-oak/10"
+              />
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <h4 class="font-semibold text-oak text-base">${pkg.name}</h4>
+                  <span class="text-xs text-muted">• ${pkg.duration}</span>
+                </div>
+                <p class="text-xs text-muted mt-0.5 line-clamp-1">${pkg.description}</p>
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="font-editorial text-2xl font-semibold text-forest">$${pkg.basePrice}</span>
+              <span class="block text-[10px] uppercase tracking-wider ${
+                selected ? 'text-forest font-semibold' : 'text-muted'
+              }">
+                ${selected ? 'Selected ✓' : 'Select'}
+              </span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render Optional +$20 Add-Ons in Step 2
+    function renderModalAddons() {
+      document.getElementById('step2SelectedPkgName').textContent = bookingState.package.name;
+      document.getElementById('step2SelectedPkgPrice').textContent = `$${bookingState.package.basePrice} Base`;
+
+      const addonsContainer = document.getElementById('modalAddonsList');
+      addonsContainer.innerHTML = ADDONS.map((addon) => {
+        const isChecked = bookingState.selectedAddons.includes(addon.id);
+        return `
+          <div
+            onclick="toggleAddon('${addon.id}')"
+            class="p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-4 ${
+              isChecked
+                ? 'bg-sand border-forest shadow-sm'
+                : 'bg-white border-oak/10 hover:border-forest/50'
+            }"
+          >
+            <div class="flex items-start gap-3">
+              <div class="mt-0.5 w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-colors ${
+                isChecked
+                  ? 'bg-forest border-forest text-cream'
+                  : 'border-oak/25 bg-cream'
+              }">
+                ${isChecked ? '<span class="text-xs font-bold">✓</span>' : ''}
+              </div>
+              <div>
+                <h5 class="text-sm font-medium text-oak">${addon.name}</h5>
+                <p class="text-xs text-muted font-light">${addon.description}</p>
+              </div>
+            </div>
+            <span class="text-xs font-semibold px-3 py-1 rounded-full shrink-0 ${
+              isChecked ? 'bg-forest text-cream' : 'bg-sand text-oak'
+            }">
+              +$${addon.price}
+            </span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectModalPackage(packageId) {
+      bookingState.package = PACKAGES.find((p) => p.id === packageId);
+      renderModalPackages();
+      updateLiveCartTotal();
+    }
+
+    function toggleAddon(addonId) {
+      const idx = bookingState.selectedAddons.indexOf(addonId);
+      if (idx > -1) {
+        bookingState.selectedAddons.splice(idx, 1);
+      } else {
+        bookingState.selectedAddons.push(addonId);
+      }
+      renderModalAddons();
+      updateLiveCartTotal();
+    }
+
+    // Generate Next 8 Upcoming Available Days
+    function renderUpcomingDates() {
+      const grid = document.getElementById('datePickerGrid');
+      const days = [];
+      const today = new Date();
+
+      for (let i = 1; i <= 8; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() + i);
+        const dayName = d.toLocaleDateString('en-US', { weekday: 'short' });
+        const monthDay = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        const fullLabel = `${dayName}, ${monthDay}`;
+        days.push({ dayName, monthDay, fullLabel });
+      }
+
+      if (!bookingState.date) {
+        bookingState.date = days[0].fullLabel;
+      }
+
+      grid.innerHTML = days
+        .map((d) => {
+          const isSelected = bookingState.date === d.fullLabel;
+          return `
+            <button
+              type="button"
+              onclick="selectDate('${d.fullLabel}')"
+              class="p-3 rounded-xl border text-center transition-all cursor-pointer ${
+                isSelected
+                  ? 'bg-forest text-cream border-forest shadow-sm'
+                  : 'bg-white text-oak border-oak/15 hover:border-forest'
+              }"
+            >
+              <span class="block text-[11px] uppercase tracking-wider opacity-75">${d.dayName}</span>
+              <span class="block text-sm font-medium mt-0.5">${d.monthDay}</span>
+            </button>
+          `;
+        })
+        .join('');
+    }
+
+    function selectDate(dateLabel) {
+      bookingState.date = dateLabel;
+      renderUpcomingDates();
+    }
+
+    // Render Time Slots
+    function renderTimeSlots() {
+      const grid = document.getElementById('timeSlotsGrid');
+      if (!bookingState.time) {
+        bookingState.time = TIME_SLOTS[3]; // Defaults to Golden Hour
+      }
+
+      grid.innerHTML = TIME_SLOTS.map((slot) => {
+        const isSelected = bookingState.time === slot;
+        return `
+          <button
+            type="button"
+            onclick="selectTime('${slot}')"
+            class="py-3 px-3 rounded-xl border text-xs font-medium tracking-wide transition-all cursor-pointer ${
+              isSelected
+                ? 'bg-oak text-cream border-oak shadow-sm'
+                : 'bg-white text-oak border-oak/15 hover:border-forest'
+            }"
+          >
+            ${slot}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectTime(slot) {
+      bookingState.time = slot;
+      renderTimeSlots();
+    }
+
+    // Step Navigation & Validation
+    function showError(msg) {
+      const banner = document.getElementById('bookingErrorBanner');
+      banner.textContent = msg;
+      banner.classList.remove('hidden');
+    }
+
+    function hideError() {
+      document.getElementById('bookingErrorBanner').classList.add('hidden');
+    }
+
+    function getSelectedAddonObjects() {
+      return bookingState.selectedAddons
+        .map((id) => ADDONS.find((a) => a.id === id))
+        .filter(Boolean);
+    }
+
+    async function nextStep() {
+      hideError();
+
+      if (currentStep === 1) {
+        if (!bookingState.package) {
+          showError('Please select a base photography package to continue.');
+          return;
+        }
+        renderModalAddons();
+        currentStep = 2;
+      } else if (currentStep === 2) {
+        currentStep = 3;
+      } else if (currentStep === 3) {
+        if (!bookingState.date || !bookingState.time) {
+          showError('Please select both a date and a shooting time window.');
+          return;
+        }
+        const total = calculateCartTotal();
+        const chosenAddons = getSelectedAddonObjects();
+
+        // Populate summary banner for Step 4
+        document.getElementById('summaryServiceName').textContent = `${bookingState.package.name} ($${bookingState.package.basePrice} Base)`;
+        document.getElementById('summaryAddonsText').textContent =
+          chosenAddons.length > 0
+            ? `Add-ons: ${chosenAddons.map((a) => `${a.name} (+$${a.price})`).join(', ')}`
+            : 'No extra add-ons selected';
+        document.getElementById('summaryDateTime').textContent = `${bookingState.date} • ${bookingState.time}`;
+        document.getElementById('summaryPrice').textContent = `$${total}`;
+        currentStep = 4;
+      } else if (currentStep === 4 && !isBookingConfirmed) {
+        const name = document.getElementById('clientName').value.trim();
+        const phone = document.getElementById('clientPhone').value.trim();
+        const email = document.getElementById('clientEmail').value.trim();
+        const instagram = document.getElementById('clientInstagram').value.trim();
+        const notes = document.getElementById('clientNotes').value.trim();
+
+        if (!name || !phone || !email || !email.includes('@')) {
+          showError('Please enter your full name, phone number, and a valid email address.');
+          return;
+        }
+
+        bookingState.name = name;
+        bookingState.phone = phone;
+        bookingState.email = email;
+        bookingState.instagram = instagram;
+        bookingState.notes = notes;
+
+        const total = calculateCartTotal();
+        const chosenAddons = getSelectedAddonObjects();
+
+        // Send booking payload to Formspree if configured
+        const payload = {
+          clientName: bookingState.name,
+          clientEmail: bookingState.email,
+          clientPhone: bookingState.phone,
+          instagram: bookingState.instagram || 'N/A',
+          package: `${bookingState.package.name} ($${bookingState.package.basePrice})`,
+          addOns: chosenAddons.length > 0 ? chosenAddons.map((a) => `${a.name} (+$${a.price})`).join(', ') : 'None',
+          preferredDate: bookingState.date,
+          preferredWindow: bookingState.time,
+          estimatedTotal: `$${total}`,
+          shootVisionNotes: bookingState.notes || 'None',
+        };
+
+        if (FORMSPREE_ENDPOINT) {
+          try {
+            const nextBtn = document.getElementById('modalNextBtn');
+            nextBtn.textContent = 'Sending...';
+            nextBtn.disabled = true;
+            await fetch(FORMSPREE_ENDPOINT, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify(payload),
+            });
+            nextBtn.disabled = false;
+          } catch (err) {
+            console.error('Form submission error:', err);
+          }
+        } else {
+          console.log('Photography Booking Payload (Add FORMSPREE_ENDPOINT to receive via email):', payload);
+        }
+
+        // Populate Itemized Receipt
+        document.getElementById('confirmClientName').textContent = bookingState.name;
+        document.getElementById('confirmClientEmail').textContent = bookingState.email;
+        document.getElementById('confirmService').textContent = `${bookingState.package.name} ($${bookingState.package.basePrice})`;
+
+        const addonsReceiptContainer = document.getElementById('confirmAddonsContainer');
+        if (chosenAddons.length > 0) {
+          addonsReceiptContainer.innerHTML = chosenAddons
+            .map(
+              (a) => `
+              <div class="flex justify-between text-xs text-oak/90">
+                <span class="text-muted">+ ${a.name}:</span>
+                <span class="font-medium text-forest">+$${a.price}</span>
+              </div>
+            `
+            )
+            .join('');
+        } else {
+          addonsReceiptContainer.innerHTML = '';
+        }
+
+        document.getElementById('confirmDateTime').textContent = `${bookingState.date} • ${bookingState.time}`;
+        document.getElementById('confirmDuration').textContent = bookingState.package.duration;
+        document.getElementById('confirmPrice').textContent = `$${total}`;
+
+        isBookingConfirmed = true;
+        document.getElementById('step4FormWrapper').classList.add('hidden');
+        document.getElementById('step4ReceiptWrapper').classList.remove('hidden');
+      } else if (currentStep === 4 && isBookingConfirmed) {
+        closeBookingModal();
+        return;
+      }
+
+      updateModalStepUI();
+    }
+
+    function prevStep() {
+      hideError();
+      if (currentStep > 1 && !isBookingConfirmed) {
+        currentStep--;
+        updateModalStepUI();
+      }
+    }
+
+    function updateModalStepUI() {
+      const titles = {
+        1: '1. Select Base Session',
+        2: '2. Optional +$20 Add-Ons',
+        3: '3. Choose Date & Lighting',
+        4: isBookingConfirmed ? 'Booking Request Complete' : '4. Your Contact & Vision',
+      };
+      const progress = { 1: '25%', 2: '50%', 3: '75%', 4: '100%' };
+
+      document.getElementById('modalStepTitle').textContent = titles[currentStep];
+      document.getElementById('modalProgressBar').style.width = progress[currentStep];
+
+      for (let i = 1; i <= 4; i++) {
+        const el = document.getElementById(`step${i}Content`);
+        if (i === currentStep) {
+          el.classList.remove('hidden');
+        } else {
+          el.classList.add('hidden');
+        }
+      }
+
+      const backBtn = document.getElementById('modalBackBtn');
+      const nextBtn = document.getElementById('modalNextBtn');
+      const liveCartBar = document.getElementById('liveCartBar');
+
+      if (currentStep === 1 || isBookingConfirmed) {
+        backBtn.classList.add('hidden');
+      } else {
+        backBtn.classList.remove('hidden');
+      }
+
+      if (isBookingConfirmed) {
+        liveCartBar.classList.add('hidden');
+      } else {
+        liveCartBar.classList.remove('hidden');
+      }
+
+      if (currentStep === 4 && !isBookingConfirmed) {
+        nextBtn.textContent = 'Confirm Booking';
+      } else if (isBookingConfirmed) {
+        nextBtn.textContent = 'Done';
+      } else {
+        nextBtn.textContent = 'Continue →';
+      }
+    }
+
+    // Copy Itemized Receipt to Clipboard using execCommand fallback
+    function copyBookingReceipt() {
+      const total = calculateCartTotal();
+      const chosenAddons = getSelectedAddonObjects();
+      const addonsLine =
+        chosenAddons.length > 0
+          ? chosenAddons.map((a) => `${a.name} (+$${a.price})`).join(', ')
+          : 'None';
+
+      const receiptText = [
+        `PHOTOGRAPHY SESSION RESERVATION`,
+        `Client: ${bookingState.name} (${bookingState.email} | ${bookingState.phone})`,
+        `Base Package: ${bookingState.package.name} ($${bookingState.package.basePrice})`,
+        `Add-Ons: ${addonsLine}`,
+        `Date & Time: ${bookingState.date} at ${bookingState.time}`,
+        `Estimated Total: $${total}`,
+      ].join('\n');
+
+      const tempTextarea = document.createElement('textarea');
+      tempTextarea.value = receiptText;
+      document.body.appendChild(tempTextarea);
+      tempTextarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextarea);
+
+      const btn = document.getElementById('copyReceiptBtn');
+      btn.textContent = 'Copied to Clipboard ✓';
+      setTimeout(() => {
+        btn.textContent = 'Copy Booking Summary';
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
